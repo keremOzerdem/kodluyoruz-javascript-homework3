@@ -82,37 +82,36 @@ const menu = [
   },
 ];
 
+const menuSayfasiDOM = document.querySelector('#menu')
+const btnDOM = document.querySelector('#btn')
 
-const menuSayfasi =document.getElementById("menu") 
-const btn=document.getElementById("btn")
-
-let buton = document.createElement("button");
-buton.textContent = "All";
+let buton = document.createElement("button")
+buton.textContent = "All"
 buton.setAttribute("class", "btn btn-outline-dark btn-item")
-btn.appendChild(buton);
+btnDOM.appendChild(buton)
 
 function getCategories(obj) {
-
-  let fullCategoryArray = [];
+  let fullCategoriesArray = [];
   for (let i = 0; i < obj.length; i++) {
     if (obj[i].category) {
-      fullCategoryArray.push(obj[i].category)
+      fullCategoriesArray.push(obj[i].category)
     }
   }
 
-  let uniqueArray = fullCategoryArray.reduce(function (a, b) {
+  let uniqueArray = fullCategoriesArray.reduce(function (a, b) {
     if (a.indexOf(b) < 0) a.push(b);
     return a;
-  }, []);
-  return uniqueArray;
+  }, [])
+  return uniqueArray
 }
-let myCategoriesArray = getCategories(menu);
+
+let myCategoriesArray = getCategories(menu)
 
 for (let i = 0; i < myCategoriesArray.length; i++) {
-  let buton = document.createElement("button");
-  buton.textContent = myCategoriesArray[i];
+  let buton = document.createElement("button")
+  buton.textContent = myCategoriesArray[i]
   buton.setAttribute("class", "btn btn-outline-dark btn-item")
-  btn.appendChild(buton);
+  btnDOM.appendChild(buton)
 }
 
 const menuList = (menuItems) => {
@@ -132,47 +131,48 @@ const menuList = (menuItems) => {
                 ${item.desc}
               </div>
             </div>
-          </div>
+            </div>
     `;
   });
   displayMenu = displayMenu.join("");
-  menuSayfasi.innerHTML = displayMenu;
-};
-menuList(menu);
+  menuSayfasiDOM.innerHTML = displayMenu;
+}
+menuList(menu)
 
-let butonlist = document.getElementsByClassName("btn-item");
-btn.addEventListener("click",
-function (event) {
-  if (event.target.tagName === "BUTTON") {
-    let tiklanan = event.target;
-    switch (tiklanan.textContent) {
-      case "All":
-        menuSayfasi.innerHTML = null;
-        menuList(menu);
-        break;
-      case "Korea":
-        menuSayfasi.innerHTML = null;
-        let newArrayK = menu.filter((item) => {
-          return item.category === "Korea";
-        });
-        menuList(newArrayK);
-        break;
-      case "Japan":
-        menuSayfasi.innerHTML = null;
-        let newArrayJ = menu.filter((item) => {
-          return item.category === "Japan";
-        });
-        menuList(newArrayJ);
-        break;
-      case "China":
-        menuSayfasi.innerHTML = null;
-        let newArrayC = menu.filter((item) => {
-          return item.category === "China";
-        });
-        menuList(newArrayC);
-        break;
+let butonList = document.querySelector('.btn-item')
+btnDOM.addEventListener("click",
+  function (event) {
+    if (event.target.tagName === "BUTTON") {
+      let clickedBtn = event.target;
+      switch (clickedBtn.textContent) {
+        case "All":
+          menuSayfasiDOM.innerHTML = null;
+          menuList(menu);
+          break;
+        case "Korea":
+          menuSayfasiDOM.innerHTML = null;
+          let newArrayK = menu.filter((item) => {
+            return item.category === "Korea";
+          })
+          menuList(newArrayK);
+          break;
+        case "Japan":
+          menuSayfasiDOM.innerHTML = null
+          let newArrayJ = menu.filter((item) => {
+            return item.category === "Japan"
+          })
+          menuList(newArrayJ)
+          break;
+        case "China":
+          menuSayfasiDOM.innerHTML = null
+          let newArrayC = menu.filter((item) => {
+            return item.category === "China"
+          })
+          menuList(newArrayC)
+          break;
+      }
+
     }
-  }
-},
-false
-);
+  },
+  false
+)
